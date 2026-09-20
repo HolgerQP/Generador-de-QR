@@ -1,71 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generador de QR</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generador de códigos QR personalizados, rápido y sencillo.">
+  <title>QR Studio | Generador de QR</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
 </head>
 <body>
   <div class="app-shell">
     <header class="app-header">
-      <div>
-        <h1>Generador de QR</h1>
-        <p>Crea códigos QR personalizados rápidamente. Ajusta colores, tamaño, margen, error correction y agrega un logo. Usa los presets para empezar rápido.</p>
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">QR</div>
+        <div>
+          <div class="eyebrow">QR STUDIO</div>
+          <h1>Generador de QR</h1>
+          <p>Crea códigos QR personalizados y descárgalos listos para compartir o imprimir.</p>
+        </div>
       </div>
-      <div style="min-width:160px; text-align:right">
-        <small style="color:#cbd5ff">Versión local • Sin conexión</small>
-      </div>
+      <div class="status-pill"><span></span> Generación local</div>
     </header>
 
     <main class="app-grid">
-      <section class="panel">
-        <h2>Opciones</h2>
+      <section class="panel controls-panel" aria-labelledby="options-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">PERSONALIZA</span>
+            <h2 id="options-title">Opciones</h2>
+          </div>
+          <button class="text-button" id="reset" type="button">Restablecer</button>
+        </div>
 
         <div class="field">
-          <label>Texto / URL</label>
-          <input id="data" type="text" value="https://example.com" placeholder="https://...">
+          <div class="label-row">
+            <label for="data">Texto o URL</label>
+            <span id="charCount">0 caracteres</span>
+          </div>
+          <input id="data" type="text" value="https://example.com" placeholder="https://ejemplo.com" autocomplete="off" spellcheck="false">
+          <small id="dataHint">El QR se actualiza automáticamente.</small>
         </div>
 
         <div class="field two-columns">
           <div>
-            <label>Color QR</label>
-            <input type="color" id="qrColor" value="#000000">
+            <label for="qrColor">Color QR</label>
+            <input type="color" id="qrColor" value="#111827" aria-label="Color del código QR">
           </div>
           <div>
-            <label>Color Fondo</label>
-            <input type="color" id="bgColor" value="#ffffff">
+            <label for="bgColor">Color de fondo</label>
+            <input type="color" id="bgColor" value="#ffffff" aria-label="Color de fondo">
           </div>
         </div>
 
         <div class="field two-columns">
           <div>
-            <label>Tamaño</label>
+            <div class="label-row"><label for="size">Tamaño</label><span id="sizeValue">360px</span></div>
             <input id="size" type="range" min="128" max="1024" value="360">
-            <span id="sizeValue">360px</span>
           </div>
           <div>
-            <label>Margen</label>
+            <div class="label-row"><label for="margin">Margen</label><span id="marginValue">8</span></div>
             <input id="margin" type="range" min="0" max="40" value="8">
-            <span id="marginValue">8</span>
           </div>
         </div>
 
         <div class="field two-columns">
           <div>
-            <label>Nivel de error</label>
+            <label for="errorLevel">Corrección de error</label>
             <select id="errorLevel">
-              <option value="L">L (7%)</option>
-              <option value="M" selected>M (15%)</option>
-              <option value="Q">Q (25%)</option>
-              <option value="H">H (30%)</option>
+              <option value="L">L · 7%</option>
+              <option value="M" selected>M · 15%</option>
+              <option value="Q">Q · 25%</option>
+              <option value="H">H · 30%</option>
             </select>
           </div>
           <div>
-            <label>Presets</label>
+            <label for="preset">Estilo rápido</label>
             <select id="preset">
-              <option value="purple" selected>Morado (Recomendado)</option>
+              <option value="classic" selected>Clásico</option>
+              <option value="purple">Morado</option>
               <option value="invert">Invertido</option>
               <option value="soft">Suave</option>
               <option value="neon">Neón</option>
@@ -75,7 +87,7 @@
 
         <div class="field two-columns">
           <div>
-            <label>Tipo de punto</label>
+            <label for="dotType">Tipo de punto</label>
             <select id="dotType">
               <option value="square">Cuadrado</option>
               <option value="rounded">Redondeado</option>
@@ -83,21 +95,21 @@
             </select>
           </div>
           <div>
-            <label>Color esquinas</label>
-            <input type="color" id="cornerColor" value="#000000">
+            <label for="cornerColor">Color de esquinas</label>
+            <input type="color" id="cornerColor" value="#111827" aria-label="Color de esquinas">
           </div>
         </div>
 
         <div class="field two-columns">
           <div>
-            <label>Tipo cuadrado de esquina</label>
+            <label for="cornerSquareType">Marco de esquina</label>
             <select id="cornerSquareType">
               <option value="square">Cuadrado</option>
               <option value="extra-rounded">Extra redondeado</option>
             </select>
           </div>
           <div>
-            <label>Tipo punto de esquina</label>
+            <label for="cornerDotType">Punto de esquina</label>
             <select id="cornerDotType">
               <option value="dot">Punto</option>
               <option value="square">Cuadrado</option>
@@ -105,44 +117,55 @@
           </div>
         </div>
 
-        <hr style="opacity:0.06; margin:14px 0">
-
-        <div class="field">
-          <label>Logo (opcional)</label>
-          <input id="logo" type="file" accept="image/*">
-        </div>
-
-        <div class="field two-columns">
-          <div>
-            <label>Tamaño logo</label>
-            <input id="logoSize" type="range" min="5" max="50" value="20">
-            <span id="logoSizeValue">20%</span>
+        <div class="subsection">
+          <div class="subsection-title">Logo opcional</div>
+          <div class="field">
+            <input id="logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+            <small>Usa una imagen pequeña para conservar la lectura del QR.</small>
           </div>
-          <div>
-            <label>Margen logo</label>
-            <input id="logoMargin" type="range" min="0" max="20" value="2">
-            <span id="logoMarginValue">2</span>
+          <div class="field two-columns compact">
+            <div>
+              <div class="label-row"><label for="logoSize">Tamaño</label><span id="logoSizeValue">20%</span></div>
+              <input id="logoSize" type="range" min="5" max="35" value="20">
+            </div>
+            <div>
+              <div class="label-row"><label for="logoMargin">Margen</label><span id="logoMarginValue">2</span></div>
+              <input id="logoMargin" type="range" min="0" max="20" value="2">
+            </div>
           </div>
+          <button id="removeLogo" class="secondary-button" type="button" disabled>Quitar logo</button>
         </div>
 
         <div class="actions">
-          <button id="downloadPng">Descargar PNG</button>
-          <button id="downloadSvg">Descargar SVG</button>
-          <button id="copyPng">Copiar PNG al portapapeles</button>
-          <button id="reset">Restablecer</button>
+          <button id="downloadPng" class="primary-action" type="button">Descargar PNG</button>
+          <button id="downloadSvg" class="secondary-button" type="button">Descargar SVG</button>
+          <button id="copyPng" class="secondary-button" type="button">Copiar PNG</button>
         </div>
       </section>
 
-      <section class="preview-panel">
+      <section class="preview-panel" aria-labelledby="preview-title">
         <div class="preview-header">
-          <h2>Vista previa</h2>
-          <div class="hint">Escanea la imagen para verificar el resultado. Ajusta las opciones para personalizar.</div>
+          <div>
+            <span class="section-kicker">RESULTADO</span>
+            <h2 id="preview-title">Vista previa</h2>
+          </div>
+          <span class="live-badge">● EN VIVO</span>
         </div>
-        <div class="preview" id="preview"></div>
+        <div class="preview" id="preview" aria-live="polite"></div>
+        <div class="preview-footer">
+          <div>
+            <strong id="previewStatus">QR listo</strong>
+            <span id="previewMessage">Escanea el código para comprobarlo antes de descargar.</span>
+          </div>
+          <div class="format-badge">PNG · SVG</div>
+        </div>
       </section>
     </main>
+
+    <footer class="app-footer">QR Studio · Herramienta web para generar códigos QR personalizados</footer>
   </div>
 
-<script src="script.js"></script>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
